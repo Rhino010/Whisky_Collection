@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <main class = "container p-5" style="margin-top: 30px;">
+        <div class = "row">
+            <aside class = "col-12 col-md-6">
+                <h1>Enter your info to create your account</h1>
+                {% include 'forms.html' %}
+            </aside>
+        </div>
+    </main>
+    <div class="d-flex justify-content-center align-items-center">
+        <img src="..\..\static\images\Whisky_Pour_Resized.jpg" alt="cool whisky pour pic" style="height:75vh; width: 75vw;">
+    </div>
+{% endblock %}
