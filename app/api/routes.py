@@ -11,10 +11,11 @@ def input_whisky(current_user_token):
     country_state = request.json['country_state']
     batch = request.json['batch']
     proof = request.json['proof']
+    user_token = current_user_token.token
 
     print(f'BIG TESTER: {current_user_token.token}')
 
-    whisky = Whisky(brand, country_state, batch, proof)
+    whisky = Whisky(brand, country_state, batch, proof, user_token=user_token)
 
     db.session.add(whisky)
     db.session.commit()
@@ -38,7 +39,7 @@ def get_single_whisky(current_user_token, id):
     response = whisky_schema.dump(whisky)
     return jsonify(response)
 
-@api.route('/api/<id>', methods = ['POST', 'PUT'])
+@api.route('/whisky_item/<id>', methods = ['POST', 'PUT'])
 @token_required
 def update_whisky(current_user_token, id):
     whisky = Whisky.query.get(id)
@@ -51,13 +52,13 @@ def update_whisky(current_user_token, id):
     response = whisky_schema.dump(whisky)
     return jsonify(response)
 
-@api.route('/api/<id>', methods = ['DELETE'])
+@api.route('/whisky_item/<id>', methods = ['DELETE'])
 @token_required
 def delete_whisky(current_user_token, id):
     whisky = Whisky.query.get(id)
-    db.session.delete(id)
+    db.session.delete(whisky)
     db.session.commit()
-    response = whisky_schema(whisky)
+    response = whisky_schema.dump(whisky)
     return jsonify(response)
 
 

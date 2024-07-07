@@ -55,13 +55,15 @@ class Whisky(db.Model):
     country_state = db.Column(db.String(150), nullable = False)
     batch = db.Column(db.String(150), nullable = True)
     proof = db.Column(db.Integer)
+    user_token = db.Column(db.String, db.ForeignKey('user.token'), nullable = False)
 
-    def __init__(self, brand, country_state, batch, proof,  id = ''):
+    def __init__(self, brand, country_state, batch, proof, user_token,  id = ''):
         self.id = self.set_id()
         self.brand = brand
         self.country_state = country_state
         self.batch = batch
         self.proof = proof
+        self.user_token = user_token
     
     def __repr__(id, brand):
         return f'{id} {brand} sounds amazing. It has been added to the database.'
